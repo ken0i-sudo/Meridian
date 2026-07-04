@@ -100,13 +100,15 @@
 
     /* ---- 5. Theme toggle ---- */
     const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light');
-        themeToggle.setAttribute('aria-label', document.body.classList.contains('light') ? 'Switch to dark theme' : 'Switch to light theme');
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.body.classList.toggle('light');
+            themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+            themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+        });
+    }
 
-    /* ---- 5. Work Slider ---- */
-
+    /* ---- 6. Work Slider ---- */
 
     let workProjects = [];
     const workSection = document.querySelector(".work");
@@ -115,7 +117,8 @@
         let current = 0;
         let animating = false;
         /* Cache elements */
-        const workImage = workSection.querySelector(".work-media img");
+        const workMedia = workSection.querySelector(".work-media");
+        const workImage = workSection.querySelector("#workImage");
         const workCategory = workSection.querySelector(".work-category");
         const workTitle = workSection.querySelector(".work-title");
         const workSubtitle = workSection.querySelector(".work-subtitle");
@@ -162,19 +165,12 @@
         }
 
         function changeSlide(nextIndex) {
-            if (!workProjects.length) return;
-            if (animating) return;
+            if (!workProjects.length || animating) return;
             animating = true;
             content.animate(
                 [
-                    {
-                        opacity: 1,
-                        transform: "translateY(0)"
-                    },
-                    {
-                        opacity: 0,
-                        transform: "translateY(24px)"
-                    }
+                    { opacity: 1, transform: "translateY(0)" },
+                    { opacity: 0, transform: "translateY(24px)" }
                 ],
                 {
                     duration: 220,
@@ -185,26 +181,21 @@
                 current = nextIndex;
                 renderWork(current);
                 content.animate(
-                    [
-                        {
-                            opacity: 0,
-                            transform: "translateY(-24px)"
-                        },
-                        {
-                            opacity: 1,
-                            transform: "translateY(0)"
-                        }
-                    ],
-                    {
-                        duration: 420,
-                        easing: "cubic-bezier(.22,1,.36,1)",
-                        fill: "forwards"
-                    }
+                [
+                    { opacity: 0, transform: "translateY(-24px)" },
+                    { opacity: 1, transform: "translateY(0)" }
+                ],
+                {
+                    duration: 420,
+                    easing: "cubic-bezier(.22,1,.36,1)",
+                    fill: "forwards"
+                }
                 ).onfinish = () => {
                     animating = false;
                 };
             };
         }
+
         /* Buttons */
         if (nextBtn) {
             nextBtn.addEventListener("click", () => {
@@ -217,6 +208,7 @@
                 changeSlide((current - 1 + workProjects.length) % workProjects.length);
             });
         }
+
         /* Dots */
         dots.forEach((dot, i) => {
             dot.addEventListener("click", () => {
@@ -226,8 +218,14 @@
             });
         });
 
-        /* Keyboard */
+        /* Keyboard Navigation with Input Protection */
         document.addEventListener("keydown", (e) => {
+            // Prevent slider from changing while typing in forms
+            const targetTag = e.target.tagName.toLowerCase();
+            if (targetTag === 'input' || targetTag === 'textarea' || targetTag === 'select' || e.target.isContentEditable) {
+                return;
+            }
+
             const rect = workSection.getBoundingClientRect();
             const visible = rect.top < window.innerHeight && rect.bottom > 0;
 
@@ -239,27 +237,63 @@
                 changeSlide((current - 1 + workProjects.length) % workProjects.length);
             }
         });
-        /* Touch */
-        leftHit?.addEventListener("click", () => {
-            changeSlide((current - 1 + workProjects.length) % workProjects.length);
-        });
-        rightHit?.addEventListener("click", () => {
-            changeSlide((current + 1) % workProjects.length);
-        });
+
+        /* Touch / Swipe Support */
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        if (workMedia) {
+            workMedia.addEventListener("touchstart", (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            workMedia.addEventListener("touchend", (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Minimum distance to register a swipe
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swiped left
+                changeSlide((current + 1) % workProjects.length);
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                // Swiped right
+                changeSlide((current - 1 + workProjects.length) % workProjects.length);
+            }
+        }
+
+        /* Click Hit Areas */
+        if (leftHit) {
+            leftHit.addEventListener("click", () => {
+                changeSlide((current - 1 + workProjects.length) % workProjects.length);
+            });
+        }
+        if (rightHit) {
+            rightHit.addEventListener("click", () => {
+                changeSlide((current + 1) % workProjects.length);
+            });
+        }
+
         /* Initial Render */
         loadProjects();
     }
 
-    /* ---- 6. FAQ accordion ---- */
+    /* ---- 7. FAQ accordion ---- */
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const btn = item.querySelector('.faq-question');
+        if (!btn) return;
+        
         btn.addEventListener('click', () => {
             const isOpen = item.classList.contains('open');
             // Close all (accordion behavior)
             faqItems.forEach(other => {
                 other.classList.remove('open');
-                other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                const otherBtn = other.querySelector('.faq-question');
+                if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
             });
             // Open clicked if it was closed
             if (!isOpen) {
@@ -269,7 +303,7 @@
         });
     });
 
-    /* ---- 7. Pricing toggle ---- */
+    /* ---- 8. Pricing toggle ---- */
     const pricingButtons = document.querySelectorAll('.pricing-toggle button');
     const priceValues = document.querySelectorAll('.price-amount .value[data-monthly]');
 
@@ -291,7 +325,7 @@
         });
     });
 
-    /* ---- 8. Contact form ---- */
+    /* ---- 9. Contact form ---- */
     const form = document.getElementById('contactForm');
     const success = document.getElementById('formSuccess');
 
@@ -335,7 +369,7 @@
         });
     }
 
-    /* ---- 9. Newsletter form ---- */
+    /* ---- 10. Newsletter form ---- */
     const newsletter = document.getElementById('newsletterForm');
     if (newsletter) {
         newsletter.addEventListener('submit', (e) => {
@@ -352,7 +386,7 @@
         });
     }
 
-    /* ---- 10. Subtle parallax on hero ---- */
+    /* ---- 11. Subtle parallax on hero ---- */
     const heroBg = document.querySelector('.hero-bg');
     const heroContent = document.querySelector('.hero-content');
 

@@ -177,7 +177,7 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .logo {
@@ -217,7 +217,7 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
 
 .nav-cta { display: none; }
 
-.nav-toggle {
+.theme-toggle, .nav-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -226,8 +226,13 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
   border-radius: var(--r-full);
   color: var(--fg);
   transition: all var(--t-fast) var(--ease);
+  flex-shrink: 0;
 }
-.nav-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:hover, .nav-toggle:hover { 
+  border-color: var(--accent); 
+  color: var(--accent); 
+}
+
 .nav-toggle .bar {
   display: block;
   width: 16px; height: 1.5px;
@@ -597,6 +602,7 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
     width: 50%;
     height: 100%;
     z-index: 3;
+    cursor: pointer;
 }
 .work-hit-left {
     left: 0;
@@ -722,8 +728,6 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
         margin-top: 2rem;
     }
 }
-
-
 
 /* ============================================================
    12. SERVICES
@@ -1353,7 +1357,6 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
 @media (min-width: 768px) {
   .nav-links { display: flex; }
   .nav-cta { display: inline-flex; }
-  .nav-toggle { display: none; }
 
   .values { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1503,6 +1506,18 @@ body.light .form-field select:focus {
 /* Newsletter */
 body.light .newsletter-input {
   background: #fff;
+}
+
+/* Work Slider Light Theme Polish */
+body.light .work-media {
+    border-color: var(--border-strong);
+}
+body.light .work-arrow {
+    background: #fff;
+    border-color: var(--border-strong);
+}
+body.light .work-tags li {
+    background: #fff;
 }
 
 /* Footer */

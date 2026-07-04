@@ -15,19 +15,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Manrope:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <!--
-  ============================================================
-  MERIDIAN — Strategic Consultancy Website
-  Modules: HTML5 (Module 2) + CSS3 (Module 3)
-  ============================================================
-  Design system:
-    - Display: Fraunces (variable serif, optical sizing)
-    - Body:    Manrope (geometric sans)
-    - Palette: deep espresso, warm cream, amber gold accent
-    - Layout:  mobile-first, Flexbox + CSS Grid
-    - Motion:  scroll reveals, count-ups, hover micro-interactions
-  ============================================================
--->
 </head>
 
 <body>
@@ -51,6 +38,7 @@
 
             <nav class="nav-links" aria-label="Primary">
                 <a href="#about">About</a>
+                <a href="#work">Work</a>
                 <a href="#services">Services</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#testimonials">Clients</a>
@@ -68,22 +56,21 @@
                 </a>
             </div>
 
-            <div class="nav-cta">
-                <button type="button" class="theme-toggle" aria-label="Toggle Theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
+            <!-- Theme Toggle (Visible on all screen sizes) -->
+            <button type="button" class="theme-toggle" aria-label="Toggle Theme" aria-pressed="false">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
 
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"
                 aria-controls="mobileMenu">
@@ -95,6 +82,7 @@
     <!-- Mobile menu -->
     <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <a href="#about">About</a>
+        <a href="#work">Work</a>
         <a href="#services">Services</a>
         <a href="#pricing">Pricing</a>
         <a href="#testimonials">Clients</a>
@@ -104,7 +92,6 @@
     </aside>
 
     <main>
-
         <!-- ============================================================
      HERO
      ============================================================ -->
@@ -239,72 +226,72 @@
         <!-- ============================================================
      SELECTED WORK
 ============================================================ -->
-<section class="work section reveal" id="work">
-    <div class="container">
-        <div class="section-head reveal">
-            <span class="eyebrow">02 — Selected Work</span>
-            <h2>
-                Proof before promises.
-            </h2>
-            <p>
-                A selection of engagements that represent how we think,
-                collaborate and execute.
-            </p>
-        </div>
-        <div class="work-showcase">
-            <!-- IMAGE -->
-            <div class="work-media">
-                <div class="work-hit work-hit-left"></div>
-                <div class="work-hit work-hit-right"></div>
-                <img id="workImage" src="images/work/work-1.jpg" alt="Healthcare Platform" draggable="false">
-                <div class="work-overlay">
-                    <span class="overlay-left">← Previous</span>
-                    <span class="overlay-right">Next →</span>
-                </div>
-            </div>
-            <!-- CONTENT -->
-            <div class="work-details">
-                <span class="work-index" id="workIndexLarge"> 01</span>
-                <div class="work-content">
-                    <p class="eyebrow work-category" id="workCategory"> Healthcare</p>
-
-                    <h3 class="work-title" id="workTitle"> Healthcare Platform</h3>
-
-                    <p class="work-subtitle" id="workSubtitle"> Series A Growth Strategy</p>
-
-                    <p class="work-description" id="workDescription">
-                        We repositioned the company,
-                        rebuilt their product experience,
-                        and designed a scalable design
-                        system for future growth.
+        <section class="work section reveal" id="work">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">02 — Selected Work</span>
+                    <h2>
+                        Proof before promises.
+                    </h2>
+                    <p>
+                        A selection of engagements that represent how we think,
+                        collaborate and execute.
                     </p>
+                </div>
+                <div class="work-showcase">
+                    <!-- IMAGE -->
+                    <div class="work-media">
+                        <div class="work-hit work-hit-left"></div>
+                        <div class="work-hit work-hit-right"></div>
+                        <img id="workImage" src="images/work/work-1.webp" alt="Healthcare Platform" draggable="false">
+                        <div class="work-overlay">
+                            <span class="overlay-left">← Previous</span>
+                            <span class="overlay-right">Next →</span>
+                        </div>
+                    </div>
+                    <!-- CONTENT -->
+                    <div class="work-details">
+                        <span class="work-index" id="workIndexLarge"> 01</span>
+                        <div class="work-content">
+                            <p class="eyebrow work-category" id="workCategory"> Healthcare</p>
 
-                    <ul class="work-tags" id="workTags">
-                        <li>Strategy</li>
-                        <li>Branding</li>
-                        <li>UX Design</li>
-                    </ul>
+                            <h3 class="work-title" id="workTitle"> Healthcare Platform</h3>
+
+                            <p class="work-subtitle" id="workSubtitle"> Series A Growth Strategy</p>
+
+                            <p class="work-description" id="workDescription">
+                                We repositioned the company,
+                                rebuilt their product experience,
+                                and designed a scalable design
+                                system for future growth.
+                            </p>
+
+                            <ul class="work-tags" id="workTags">
+                                <li>Strategy</li>
+                                <li>Branding</li>
+                                <li>UX Design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- NAVIGATION -->
+                <div class="work-navigation">
+                    <button class="work-arrow" id="workPrev" aria-label="Previous project">←</button>
+                    <div class="work-progress">
+                        <div class="work-progress-track">
+                            <div class="work-progress-fill" id="workProgress"></div>
+                        </div>
+                        <div class="work-dots">
+                            <button class="work-dot active" data-index="0"> 01 </button>
+                            <button class="work-dot" data-index="1"> 02 </button>
+                            <button class="work-dot" data-index="2"> 03 </button>
+                            <button class="work-dot" data-index="3"> 04 </button>
+                        </div>
+                    </div>
+                    <button class="work-arrow" id="workNext" aria-label="Next project">→</button>
                 </div>
             </div>
-        </div>
-        <!-- NAVIGATION -->
-        <div class="work-navigation">
-            <button class="work-arrow" id="workPrev" aria-label="Previous project">←</button>
-            <div class="work-progress">
-                <div class="work-progress-track">
-                    <div class="work-progress-fill" id="workProgress"></div>
-                </div>
-                <div class="work-dots">
-                    <button class="work-dot active" data-index="0"> 01 </button>
-                    <button class="work-dot" data-index="1"> 02 </button>
-                    <button class="work-dot" data-index="2">03</button>
-                    <button class="work-dot" data-index="3"> 04 </button>
-                </div>
-            </div>
-            <button class="work-arrow" id="workNext" aria-label="Next project">→</button>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- ============================================================
      SERVICES
@@ -904,42 +891,6 @@
     </footer>
 
     <script src="main.js"></script>
-
-    <!--
-  ============================================================
-  QUALITY CHECKLIST
-  ============================================================
-  HTML5
-    [x] Semantic landmarks: header, nav, main, section, article, footer, aside
-    [x] Single <h1>; logical <h2>/<h3>/<h4> hierarchy
-    [x] All images have alt text (or empty alt when decorative)
-    [x] Form inputs associated with <label for>
-    [x] ARIA attributes on interactive widgets (aria-expanded, aria-hidden, role)
-    [x] Accessibility: focus-visible styles, keyboard operable, ESC closes menu
-    [x] Meta description + theme-color + viewport
-
-  CSS3
-    [x] Custom properties design system (colors, type, spacing, motion)
-    [x] Mobile-first responsive with 3 breakpoints (600/768/1024)
-    [x] Flexbox (nav, hero ctas, contact details, footer)
-    [x] CSS Grid (services, pricing, testimonials, about, footer-top)
-    [x] Box model: border-box reset, consistent padding/margin
-    [x] Selectors: descendant, child, pseudo-class, attribute, nth-child
-    [x] clamp() for fluid typography and spacing
-    [x] Transitions on hover/focus states
-    [x] Keyframe animations (drift, fadeUp)
-    [x] Scroll-reveal via IntersectionObserver + CSS transitions
-    [x] backdrop-filter, mask-image, mix-blend-mode
-    [x] prefers-reduced-motion respected
-    [x] CSS performance: transform/opacity for animations, will-change sparingly
-
-  Cross-browser
-    [x] -webkit- prefixes for backdrop-filter, mask-image, appearance
-    [x] System font fallbacks
-    [x] Progressive enhancement (core content visible without JS)
-
-  ============================================================
--->
 </body>
 
 </html>
