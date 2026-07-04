@@ -1,0 +1,54 @@
+[
+  {
+    "category": "Healthcare",
+    "title": "Repositioning a national healthcare brand.",
+    "subtitle": "Strategy • Branding • UX",
+    "description": "Complete repositioning of a multi-location healthcare provider, increasing appointment conversions by 47% while creating a scalable design system.",
+    "image": "images/work/work-1.webp",
+    "tags": [
+      "Strategy",
+      "Brand",
+      "UX",
+      "Research"
+    ]
+  },
+  {
+    "category": "Fintech",
+    "title": "Scaling a fintech platform.",
+    "subtitle": "Product Strategy",
+    "description": "Worked alongside leadership to redesign onboarding and investor dashboards while preparing the company for Series B.",
+    "image": "images/work/work-2.webp",
+    "tags": [
+      "Product",
+      "Research",
+      "UI",
+      "Growth"
+    ]
+  },
+  {
+    "category": "AI",
+    "title": "Building the future of AI collaboration.",
+    "subtitle": "Platform Design",
+    "description": "Designed the complete product language for an enterprise AI platform used by distributed teams.",
+    "image": "images/work/work-3.webp",
+    "tags": [
+      "AI",
+      "Dashboard",
+      "UX",
+      "Design System"
+    ]
+  },
+  {
+    "category": "Luxury",
+    "title": "A digital flagship experience.",
+    "subtitle": "Commerce",
+    "description": "Created an editorial shopping experience focused on storytelling instead of traditional ecommerce.",
+    "image": "images/work/work-4.webp",
+    "tags": [
+      "Commerce",
+      "Brand",
+      "Motion",
+      "UI"
+    ]
+  }
+]
