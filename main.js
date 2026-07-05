@@ -1,6 +1,8 @@
 /* ============================================================
    JAVASCRIPT — Interactivity layer
    ============================================================ */
+const API_URL = 'http://localhost:5000/api';
+
 (function () {
     'use strict';
 
@@ -181,15 +183,15 @@
                 current = nextIndex;
                 renderWork(current);
                 content.animate(
-                [
-                    { opacity: 0, transform: "translateY(-24px)" },
-                    { opacity: 1, transform: "translateY(0)" }
-                ],
-                {
-                    duration: 420,
-                    easing: "cubic-bezier(.22,1,.36,1)",
-                    fill: "forwards"
-                }
+                    [
+                        { opacity: 0, transform: "translateY(-24px)" },
+                        { opacity: 1, transform: "translateY(0)" }
+                    ],
+                    {
+                        duration: 420,
+                        easing: "cubic-bezier(.22,1,.36,1)",
+                        fill: "forwards"
+                    }
                 ).onfinish = () => {
                     animating = false;
                 };
@@ -286,7 +288,7 @@
     faqItems.forEach(item => {
         const btn = item.querySelector('.faq-question');
         if (!btn) return;
-        
+
         btn.addEventListener('click', () => {
             const isOpen = item.classList.contains('open');
             // Close all (accordion behavior)
@@ -325,47 +327,48 @@
         });
     });
 
-    /* ---- 9. Contact form ---- */
+    /* ---- 9. Contact form (Backend Integration) ---- */
     const form = document.getElementById('contactForm');
     const success = document.getElementById('formSuccess');
 
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
 
-            // Basic validation
-            const name = form.querySelector('#name').value.trim();
-            const email = form.querySelector('#email').value.trim();
-            const message = form.querySelector('#message').value.trim();
-            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const formData = {
+                name: form.querySelector('#name').value.trim(),
+                email: form.querySelector('#email').value.trim(),
+                company: form.querySelector('#company').value.trim(),
+                projectType: form.querySelector('#type').value,
+                budget: form.querySelector('#budget').value,
+                message: form.querySelector('#message').value.trim()
+            };
 
-            if (!name || !email || !message) {
-                // Highlight empty required fields
-                if (!name) form.querySelector('#name').focus();
-                else if (!email || !emailValid) form.querySelector('#email').focus();
-                else form.querySelector('#message').focus();
-                return;
-            }
-
-            if (!emailValid) {
-                form.querySelector('#email').focus();
-                return;
-            }
-
-            // Simulate submission
-            success.classList.add('show');
-            form.querySelectorAll('input, select, textarea, button').forEach(el => {
-                el.style.opacity = '0.5';
-                el.style.pointerEvents = 'none';
-            });
-
-            setTimeout(() => {
-                form.reset();
-                form.querySelectorAll('input, select, textarea, button').forEach(el => {
-                    el.style.opacity = '';
-                    el.style.pointerEvents = '';
+            try {
+                const response = await fetch(`${API_URL}/contact`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(formData)
                 });
-            }, 800);
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Failed to send');
+
+                success.classList.add('show');
+                setTimeout(() => {
+                    form.reset();
+                    success.classList.remove('show');
+                    submitBtn.textContent = 'Send message';
+                    submitBtn.disabled = false;
+                }, 3000);
+            } catch (error) {
+                alert(error.message);
+                submitBtn.textContent = 'Send message';
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -400,5 +403,102 @@
             }
         }, { passive: true });
     }
+
+    /* ---- 12. Authentication UI ---- */
+    const navAuth = document.getElementById('navAuth');
+    const authModal = document.getElementById('authModal');
+
+    const checkAuthState = async () => {
+        try {
+            const res = await fetch(`${API_URL}/auth/me`, { credentials: 'include' });
+            if (res.ok) {
+                navAuth.innerHTML = `<a href="dashboard.html" class="btn btn-ghost" style="margin-right:0.5rem;">Dashboard</a><button id="logoutBtn" class="btn btn-primary">Logout</button>`;
+                document.getElementById('logoutBtn').addEventListener('click', async () => {
+                    await fetch(`${API_URL}/auth/logout`, { method: 'POST', credentials: 'include' });
+                    checkAuthState();
+                });
+            } else {
+                navAuth.innerHTML = `<button id="openAuthBtn" class="btn btn-ghost">Login</button>`;
+                document.getElementById('openAuthBtn').addEventListener('click', () => authModal.classList.add('open'));
+            }
+        } catch (err) {
+            // offline / server down
+        }
+    };
+
+    // Modal controls
+    document.getElementById('modalClose').addEventListener('click', () => authModal.classList.remove('open'));
+    authModal.addEventListener('click', (e) => { if (e.target === authModal) authModal.classList.remove('open'); });
+
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('loginForm').style.display = tab.dataset.tab === 'login' ? 'flex' : 'none';
+            document.getElementById('registerForm').style.display = tab.dataset.tab === 'register' ? 'flex' : 'none';
+        });
+    });
+
+    // Login Handler
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        const errEl = document.getElementById('loginError');
+        btn.textContent = 'Logging in...';
+
+        try {
+            const res = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: document.getElementById('loginEmail').value,
+                    password: document.getElementById('loginPassword').value
+                })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+
+            authModal.classList.remove('open');
+            checkAuthState();
+        } catch (err) {
+            errEl.textContent = err.message;
+            errEl.classList.add('show');
+            btn.textContent = 'Login';
+        }
+    });
+
+    // Register Handler
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        const errEl = document.getElementById('registerError');
+        btn.textContent = 'Creating...';
+
+        try {
+            const res = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    name: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value
+                })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message);
+
+            authModal.classList.remove('open');
+            checkAuthState();
+        } catch (err) {
+            errEl.textContent = err.message;
+            errEl.classList.add('show');
+            btn.textContent = 'Register';
+        }
+    });
+
+    // Init Auth State
+    checkAuthState();
 
 })();

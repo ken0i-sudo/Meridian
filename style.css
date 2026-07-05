@@ -1357,6 +1357,7 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
 @media (min-width: 768px) {
   .nav-links { display: flex; }
   .nav-cta { display: inline-flex; }
+  .nav-toggle { display: none; }
 
   .values { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1523,4 +1524,81 @@ body.light .work-tags li {
 /* Footer */
 body.light .footer {
   background: var(--bg-1);
+}
+
+
+/* ============================================================
+   AUTH MODAL
+   ============================================================ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.open { display: flex; animation: fadeUp 0.3s var(--ease); }
+
+.modal-content {
+  max-width: 460px;
+  background: var(--bg-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-xl);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: 1.5rem; line-height: 1;
+  color: var(--fg-muted);
+  background: none; border: none; cursor: pointer;
+}
+.modal-close:hover { color: var(--accent); }
+
+.auth-tabs {
+  width: 100%;
+  display: flex; gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--fg-muted);
+  background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.auth-tab.active { color: var(--fg); border-bottom-color: var(--accent); }
+
+.auth-error { color: #ef4444; font-size: 0.875rem; margin-top: 0.5rem; display: none; }
+.auth-error.show { display: block; }
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* Even spacing between form fields */
+}
+
+/* Ensure modal inputs match the site's dark/light theme */
+.auth-form .form-field input {
+  background: var(--bg-2);
+  border-color: var(--border-strong);
+}
+
+.auth-form .form-field input:focus {
+  background: var(--surface);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.auth-form .btn {
+  margin-top: 0.5rem;
 }

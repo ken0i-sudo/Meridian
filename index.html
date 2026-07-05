@@ -46,7 +46,9 @@
                 <a href="#contact">Contact</a>
             </nav>
 
-            <div class="nav-cta">
+            <div class="nav-cta" id="navAuth"></div>
+
+            <!-- <div class="nav-cta">
                 <a href="#contact" class="btn btn-primary">
                     Start a project
                     <svg class="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -54,7 +56,7 @@
                             stroke-linejoin="round" />
                     </svg>
                 </a>
-            </div>
+            </div> -->
 
             <!-- Theme Toggle (Visible on all screen sizes) -->
             <button type="button" class="theme-toggle" aria-label="Toggle Theme" aria-pressed="false">
@@ -889,6 +891,54 @@
             </div>
         </div>
     </footer>
+
+
+    <!-- ============================================================
+     AUTH MODAL
+     ============================================================ -->
+     
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="form-field">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="you@company.com">
+                </div>
+                <div class="form-field">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <div class="auth-error" id="loginError"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Login</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <div class="form-field">
+                    <label for="regName">Name</label>
+                    <input type="text" id="regName" required placeholder="Jane Doe">
+                </div>
+                <div class="form-field">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" required placeholder="you@company.com">
+                </div>
+                <div class="form-field">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" required placeholder="Min 8 characters">
+                </div>
+                <div class="auth-error" id="registerError"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register</button>
+            </form>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
