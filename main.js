@@ -100,11 +100,21 @@ const API_URL = 'http://localhost:5000/api';
 
     if (statsContainer) statsObserver.observe(statsContainer);
 
-    /* ---- 5. Theme toggle ---- */
+    /* ---- 5. Theme toggle (with Local Storage) ---- */
     const themeToggle = document.querySelector('.theme-toggle');
     if (themeToggle) {
+        // Sync button state on load
+        if (document.documentElement.classList.contains('light')) {
+            themeToggle.setAttribute('aria-pressed', 'true');
+            themeToggle.setAttribute('aria-label', 'Switch to dark theme');
+        }
+
         themeToggle.addEventListener('click', () => {
-            const isLight = document.body.classList.toggle('light');
+            const isLight = document.documentElement.classList.toggle('light');
+            
+            // Save preference to Local Storage
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            
             themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
             themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
         });

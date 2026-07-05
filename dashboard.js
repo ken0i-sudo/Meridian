@@ -44,4 +44,18 @@ const API_URL = 'http://localhost:5000/api';
     } catch (err) {
         console.error('Failed to load contacts', err);
     }
+
+        // 4. Theme Toggle (Sync with Local Storage)
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+        if (document.documentElement.classList.contains('light')) {
+            themeToggle.setAttribute('aria-pressed', 'true');
+        }
+        themeToggle.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('light');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+        });
+    }
+    
 })();

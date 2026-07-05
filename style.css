@@ -1405,7 +1405,7 @@ section { padding-block: clamp(4rem, 10vw, 8rem); position: relative; }
 /* Toggle by adding class="light" to <body> */
 /* Default remains dark */
 
-body.light {
+.light {
   /* Backgrounds */
   --bg: #faf8f5;
   --bg-1: #f5f2ee;
@@ -1434,25 +1434,25 @@ body.light {
 }
 
 /* Selection */
-body.light ::selection {
+.light ::selection {
   background: var(--accent);
   color: #fff;
 }
 
 /* Navigation */
-body.light .nav.scrolled {
+.light .nav.scrolled {
   background: rgba(250,248,245,.82);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* Mobile menu */
-body.light .mobile-menu {
+.light .mobile-menu {
   background: var(--bg);
 }
 
 /* Hero background */
-body.light .hero-bg {
+.light .hero-bg {
   background:
     radial-gradient(circle at 75% 15%, rgba(245,177,76,.15), transparent 55%),
     radial-gradient(circle at 15% 65%, rgba(245,177,76,.08), transparent 55%),
@@ -1460,29 +1460,29 @@ body.light .hero-bg {
 }
 
 /* Hero grid */
-body.light .hero-grid {
+.light .hero-grid {
   background-image:
     linear-gradient(rgba(0,0,0,.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0,0,0,.04) 1px, transparent 1px);
 }
 
 /* Hero noise */
-body.light .hero-noise {
+.light .hero-noise {
   opacity: .12;
   mix-blend-mode: multiply;
 }
 
 /* Cards */
-body.light .service-card,
-body.light .price-card,
-body.light .testimonial-card,
-body.light .faq-item,
-body.light .contact-form {
+.light .service-card,
+.light .price-card,
+.light .testimonial-card,
+.light .faq-item,
+.light .contact-form {
   box-shadow: var(--shadow-md);
 }
 
 /* Featured pricing card */
-body.light .price-card.featured {
+.light .price-card.featured {
   background: linear-gradient(
     180deg,
     rgba(245,177,76,.10),
@@ -1492,37 +1492,37 @@ body.light .price-card.featured {
 }
 
 /* Inputs */
-body.light .form-field input,
-body.light .form-field textarea,
-body.light .form-field select {
+.light .form-field input,
+.light .form-field textarea,
+.light .form-field select {
   background: #fff;
 }
 
-body.light .form-field input:focus,
-body.light .form-field textarea:focus,
-body.light .form-field select:focus {
+.light .form-field input:focus,
+.light .form-field textarea:focus,
+.light .form-field select:focus {
   background: #fff;
 }
 
 /* Newsletter */
-body.light .newsletter-input {
+.light .newsletter-input {
   background: #fff;
 }
 
 /* Work Slider Light Theme Polish */
-body.light .work-media {
+.light .work-media {
     border-color: var(--border-strong);
 }
-body.light .work-arrow {
+.light .work-arrow {
     background: #fff;
     border-color: var(--border-strong);
 }
-body.light .work-tags li {
+.light .work-tags li {
     background: #fff;
 }
 
 /* Footer */
-body.light .footer {
+.light .footer {
   background: var(--bg-1);
 }
 

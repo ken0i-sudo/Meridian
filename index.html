@@ -8,6 +8,13 @@
     <meta name="description"
         content="Meridian is a strategic consultancy that helps ambitious teams turn complex challenges into category-defining outcomes.">
     <meta name="theme-color" content="#0c0a09">
+    
+    <!-- Apply saved theme before render to prevent flashing -->
+    <script>
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    </script>
 
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
